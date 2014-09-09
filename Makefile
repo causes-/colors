@@ -1,4 +1,4 @@
-BIN=colors repeat used
+BIN=colors
 
 all: $(BIN)
 

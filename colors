@@ -1,34 +1,109 @@
-#!/bin/env bash
+#!/usr/bin/env bash
 
-t="abcd"
-
-for i in {0..7}; do
-	fg[$i]="\e[3${i}m"
-	fg2[$i]="\e[1;3${i}m"
-	bg[$i]="\e[4${i}m"
-done
-
-if [ "$1" = "-h" ]; then
-	echo "$0 - Display terminal colors with escape sequences"
+help() {
+	echo "usage: $0 [options]"
 	echo
-	echo "Usage: $0 [-v] [-h]"
-	exit
-elif [ "$1" = "-v" ]; then
-	echo "       ${bg[@]}"
-	for f in ${fg[@]} ${fg2[@]}; do
-		echo -en "$f $t "
-		for b in ${bg[@]}; do
-			echo -en "$f $b $t \e[00m"
-		done
-		echo " $f"
+	echo "-h    help"
+	echo "-p    color palette"
+	echo "-n    color numbers"
+}
+
+palette() {
+	for i in {0..7}; do
+		tput setab "$i"
+		echo -n "  "
 	done
-else
-	echo "       ${bg[@]}"
-	for f in ${fg[@]}; do
-		echo -en "$f $t "
-		for b in ${bg[@]}; do
-			echo -en "$f $b $t \e[00m"
-		done
-		echo " $f"
+	tput sgr0
+	echo
+
+	for i in {8..15}; do
+		tput setab "$i"
+		echo -n "  "
 	done
-fi
+	tput sgr0
+	echo
+}
+
+numbers() {
+	for i in {0..7}; do
+		tput setaf "$i"
+		for j in {0..7}; do
+			tput setab "$j"
+			if (( $i < 10 )); then
+				echo -n "f:$i "
+			else
+				echo -n "f:$i"
+			fi
+			if (( $j < 10 )); then
+				echo -n "b:$j "
+			else
+				echo -n "b:$j"
+			fi
+		done
+		tput sgr0
+		echo
+	done
+
+	for i in {0..7}; do
+		tput setaf "$i"
+		for j in {8..15}; do
+			tput setab "$j"
+			if (( $i < 10 )); then
+				echo -n "f:$i "
+			else
+				echo -n "f:$i"
+			fi
+			if (( $j < 10 )); then
+				echo -n "b:$j "
+			else
+				echo -n "b:$j"
+			fi
+		done
+		tput sgr0
+		echo
+	done
+
+	for i in {8..15}; do
+		tput setaf "$i"
+		for j in {0..7}; do
+			tput setab "$j"
+			if (( $i < 10 )); then
+				echo -n "f:$i "
+			else
+				echo -n "f:$i"
+			fi
+			if (( $j < 10 )); then
+				echo -n "b:$j "
+			else
+				echo -n "b:$j"
+			fi
+		done
+		tput sgr0
+		echo
+	done
+
+	for i in {8..15}; do
+		tput setaf "$i"
+		for j in {8..15}; do
+			tput setab "$j"
+			if (( $i < 10 )); then
+				echo -n "f:$i "
+			else
+				echo -n "f:$i"
+			fi
+			if (( $j < 10 )); then
+				echo -n "b:$j "
+			else
+				echo -n "b:$j"
+			fi
+		done
+		tput sgr0
+		echo
+	done
+}
+
+case "$1" in
+	-p) palette ;;
+	-n) numbers ;;
+	*) help ;;
+esac
