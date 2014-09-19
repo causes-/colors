@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
-help() {
+usage() {
 	echo "usage: $0 [options]"
 	echo
 	echo "-h    help"
 	echo "-p    color palette"
-	echo "-n    color numbers"
+	echo "-f    full color map"
 }
 
 palette() {
@@ -24,7 +24,7 @@ palette() {
 	echo
 }
 
-numbers() {
+full() {
 	for i in {0..7}; do
 		tput setaf "$i"
 		for j in {0..7}; do
@@ -45,44 +45,6 @@ numbers() {
 	done
 
 	for i in {0..7}; do
-		tput setaf "$i"
-		for j in {8..15}; do
-			tput setab "$j"
-			if (( $i < 10 )); then
-				echo -n "f:$i "
-			else
-				echo -n "f:$i"
-			fi
-			if (( $j < 10 )); then
-				echo -n "b:$j "
-			else
-				echo -n "b:$j"
-			fi
-		done
-		tput sgr0
-		echo
-	done
-
-	for i in {8..15}; do
-		tput setaf "$i"
-		for j in {0..7}; do
-			tput setab "$j"
-			if (( $i < 10 )); then
-				echo -n "f:$i "
-			else
-				echo -n "f:$i"
-			fi
-			if (( $j < 10 )); then
-				echo -n "b:$j "
-			else
-				echo -n "b:$j"
-			fi
-		done
-		tput sgr0
-		echo
-	done
-
-	for i in {8..15}; do
 		tput setaf "$i"
 		for j in {8..15}; do
 			tput setab "$j"
@@ -103,7 +65,16 @@ numbers() {
 }
 
 case "$1" in
-	-p) palette ;;
-	-n) numbers ;;
-	*) help ;;
+	-h)
+		usage
+		;;
+	-p)
+		palette
+		;;
+	-f)
+		full
+		;;
+	*)
+		palette
+		;;
 esac
