@@ -5,63 +5,22 @@ usage() {
 	echo
 	echo "-h    help"
 	echo "-p    color palette"
-	echo "-f    full color map"
 }
 
 palette() {
+	line=""
 	for i in {0..7}; do
-		tput setab "$i"
-		echo -n "  "
+		line="$line$(tput setab $i)  "
 	done
+	echo "$line"
 	tput sgr0
-	echo
 
+	line=""
 	for i in {8..15}; do
-		tput setab "$i"
-		echo -n "  "
+		line="$line$(tput setab $i)  "
 	done
+	echo "$line"
 	tput sgr0
-	echo
-}
-
-full() {
-	for i in {0..7}; do
-		tput setaf "$i"
-		for j in {0..7}; do
-			tput setab "$j"
-			if (( $i < 10 )); then
-				echo -n "f:$i "
-			else
-				echo -n "f:$i"
-			fi
-			if (( $j < 10 )); then
-				echo -n "b:$j "
-			else
-				echo -n "b:$j"
-			fi
-		done
-		tput sgr0
-		echo
-	done
-
-	for i in {0..7}; do
-		tput setaf "$i"
-		for j in {8..15}; do
-			tput setab "$j"
-			if (( $i < 10 )); then
-				echo -n "f:$i "
-			else
-				echo -n "f:$i"
-			fi
-			if (( $j < 10 )); then
-				echo -n "b:$j "
-			else
-				echo -n "b:$j"
-			fi
-		done
-		tput sgr0
-		echo
-	done
 }
 
 case "$1" in
@@ -70,9 +29,6 @@ case "$1" in
 		;;
 	-p)
 		palette
-		;;
-	-f)
-		full
 		;;
 	*)
 		palette
