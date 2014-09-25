@@ -5,6 +5,7 @@ usage() {
 	echo
 	echo "-h    help"
 	echo "-p    color palette"
+	echo "-l    large color palette"
 }
 
 palette() {
@@ -23,12 +24,33 @@ palette() {
 	tput sgr0
 }
 
+largepalette() {
+	line=""
+	for i in {0..7}; do
+		line="$line$(tput setab $i)    "
+	done
+	echo "$line"
+	echo "$line"
+	tput sgr0
+
+	line=""
+	for i in {8..15}; do
+		line="$line$(tput setab $i)    "
+	done
+	echo "$line"
+	echo "$line"
+	tput sgr0
+}
+
 case "$1" in
 	-h)
 		usage
 		;;
 	-p)
 		palette
+		;;
+	-l)
+		largepalette
 		;;
 	*)
 		palette
