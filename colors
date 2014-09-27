@@ -6,6 +6,7 @@ usage() {
 	echo "-h    help"
 	echo "-p    color palette"
 	echo "-l    large color palette"
+	echo "-m    main colors"
 }
 
 palette() {
@@ -13,15 +14,13 @@ palette() {
 	for i in {0..7}; do
 		line="$line$(tput setab $i)  "
 	done
-	echo "$line"
-	tput sgr0
+	echo "$line$(tput sgr0)"
 
 	line=""
 	for i in {8..15}; do
 		line="$line$(tput setab $i)  "
 	done
-	echo "$line"
-	tput sgr0
+	echo "$line$(tput sgr0)"
 }
 
 largepalette() {
@@ -29,17 +28,24 @@ largepalette() {
 	for i in {0..7}; do
 		line="$line$(tput setab $i)    "
 	done
-	echo "$line"
-	echo "$line"
-	tput sgr0
+	echo "$line$(tput sgr0)"
+	echo "$line$(tput sgr0)"
 
 	line=""
 	for i in {8..15}; do
 		line="$line$(tput setab $i)    "
 	done
-	echo "$line"
-	echo "$line"
-	tput sgr0
+	echo "$line$(tput sgr0)"
+	echo "$line$(tput sgr0)"
+}
+
+main() {
+	line=""
+	for i in {0..7}; do
+		line="$line$(tput setab $i)    "
+	done
+	echo "$line$(tput sgr0)"
+	echo "$line$(tput sgr0)"
 }
 
 case "$1" in
@@ -52,7 +58,10 @@ case "$1" in
 	-l)
 		largepalette
 		;;
+	-m)
+		main
+		;;
 	*)
-		palette
+		usage
 		;;
 esac
