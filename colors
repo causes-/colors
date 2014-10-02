@@ -7,10 +7,11 @@ usage() {
 	echo "-p    color palette"
 	echo "-l    large color palette"
 	echo "-m    main colors"
+	echo "-c    color numbers"
 }
 
 palette() {
-	line=""
+	local line=""
 	for i in {0..7}; do
 		line="$line$(tput setab $i)  "
 	done
@@ -24,7 +25,7 @@ palette() {
 }
 
 largepalette() {
-	line=""
+	local line=""
 	for i in {0..7}; do
 		line="$line$(tput setab $i)    "
 	done
@@ -40,12 +41,24 @@ largepalette() {
 }
 
 main() {
-	line=""
+	local line=""
 	for i in {0..7}; do
 		line="$line$(tput setab $i)    "
 	done
 	echo "$line$(tput sgr0)"
 	echo "$line$(tput sgr0)"
+}
+
+numbers() {
+	local line=""
+	local line2=""
+	for i in {0..7}; do
+		line="$line $i "
+		line2="$line2$(tput setab $i)   "
+	done
+	echo "$line$(tput sgr0)"
+	echo "$line2$(tput sgr0)"
+	echo "$line2$(tput sgr0)"
 }
 
 case "$1" in
@@ -60,6 +73,9 @@ case "$1" in
 		;;
 	-m)
 		main
+		;;
+	-n)
+		numbers
 		;;
 	*)
 		usage
