@@ -1,10 +1,12 @@
+PREFIX=/usr/local
+
 BIN=colors
 
 all: $(BIN)
 
 install: all
-	mkdir -p $(DESTDIR)/usr/bin
-	install -m 755 $(BIN) $(DESTDIR)/usr/bin/
+	mkdir -p $(DESTDIR)$(PREFIX)/bin
+	install -m 755 $(BIN) $(DESTDIR)$(PREFIX)/bin/
 
 uninstall:
-	rm -f $(DESTDIR)/usr/bin/$(BIN)
+	rm -f $(DESTDIR)$(PREFIX)/bin/$(BIN)

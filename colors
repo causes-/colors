@@ -66,8 +66,8 @@ numbers() {
 }
 
 case "$1" in
-	-h)
-		usage
+	"")
+		all
 		;;
 	-a)
 		all
